@@ -28,33 +28,43 @@ public class PanelEditarRestaurante extends JPanel
 
     public PanelEditarRestaurante( )
     {
+        // Organiza el panel en 3 filas, 1 columna
+        setLayout( new GridLayout( 3, 1 ) );
+
         // Crea el campo para el nombre con una etiqueta al frente
-        // TODO completar
+        JPanel filaNombre = new JPanel( new FlowLayout( FlowLayout.LEFT ) );
+        filaNombre.add( new JLabel( "Nombre" ) );
+        txtNombre = new JTextField( 15 );
+        filaNombre.add( txtNombre );
+        add( filaNombre );
 
         // Crea el selector para la calificación con una etiqueta al frente
-        // TODO completar
+        JPanel filaCalificacion = new JPanel( new FlowLayout( FlowLayout.LEFT ) );
+        filaCalificacion.add( new JLabel( "Calificación" ) );
+        cbbCalificacion = new JComboBox<>( new String[]{ "1", "2", "3", "4", "5" } );
+        filaCalificacion.add( cbbCalificacion );
+        add( filaCalificacion );
 
         // Crea el selector para indicar si ya ha sido visitado, con una etiqueta al frente
-        // TODO completar
-
-        // Agregar todos los elementos al panel
-        // TODO completar
-
+        JPanel filaVisitado = new JPanel( new FlowLayout( FlowLayout.LEFT ) );
+        filaVisitado.add( new JLabel( "Visitado" ) );
+        cbbVisitado = new JComboBox<>( new String[]{ "Sí", "No" } );
+        filaVisitado.add( cbbVisitado );
+        add( filaVisitado );
     }
 
     /**
      * Indica si en el selector se seleccionó la opción que dice que el restaurante fue visitado
-     * @return
+     * @return true si fue visitado, false si no
      */
     public boolean getVisitado( )
     {
-        // TODO completar
-        return false;
+        return cbbVisitado.getSelectedItem( ).equals( "Sí" );
     }
 
     /**
      * Indica la calificación marcada en el selector
-     * @return
+     * @return La calificación como entero entre 1 y 5
      */
     public int getCalificacion( )
     {
@@ -64,11 +74,10 @@ public class PanelEditarRestaurante extends JPanel
 
     /**
      * Indica el nombre digitado para el restaurante
-     * @return
+     * @return El nombre del restaurante
      */
     public String getNombre( )
     {
-        // TODO completar
-        return "";
+        return txtNombre.getText( );
     }
 }

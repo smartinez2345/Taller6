@@ -82,11 +82,15 @@ public class VentanaPrincipal extends JFrame
     }
 
     /**
-     * Abre la ventana para mostrar el mapa de restaurante, si no está abierta ya
+     * Abre la ventana para mostrar el mapa de restaurantes, si no está abierta ya
      */
     public void mostrarVentanaMapa( )
     {
-        // TODO completar mostrarVentanaMapa
+        if( ventanaMapa == null || !ventanaMapa.isVisible( ) )
+        {
+            ventanaMapa = new VentanaMapa( this, mundo.getRestaurantes( true ) );
+            ventanaMapa.setVisible( true );
+        }
     }
 
     /**
@@ -99,15 +103,18 @@ public class VentanaPrincipal extends JFrame
      */
     public void agregarRestaurante( String nombre, int calificacion, int x, int y, boolean visitado )
     {
-        // TODO completar agregarRestaurante
+        Restaurante nuevo = new Restaurante( nombre, calificacion, x, y, visitado );
+        mundo.agregarRestaurante( nuevo );
+        actualizarRestaurantes( );
+        pLista.seleccionarRestaurante( nuevo );
     }
 
     /**
      * Retorna una lista de los restaurantes.
-     * 
-     * Si se quieren todos los restaurantes, 'completos' debe ser verdadero. De lo contrario, se retornan sólo los visitados.
+     * Si se quieren todos los restaurantes, 'completos' debe ser verdadero.
+     * De lo contrario, se retornan sólo los visitados.
      * @param completos Indica si se quieren todos los restaurantes o solo los ya visitados.
-     * @return
+     * @return Lista de restaurantes
      */
     public List<Restaurante> getRestaurantes( boolean completos )
     {
@@ -115,17 +122,22 @@ public class VentanaPrincipal extends JFrame
     }
 
     /**
-     * Actualiza los restaurantes que se muestran en la lista y el restaurante seleccionado del cual se muestran los detalles
+     * Actualiza los restaurantes que se muestran en la lista y el restaurante
+     * seleccionado del cual se muestran los detalles
      */
     private void actualizarRestaurantes( )
     {
         List<Restaurante> todos = this.mundo.getRestaurantes( true );
-        // TODO completar actualizarRestaurantes
+        pLista.actualizarRestaurantes( todos );
+        if( !todos.isEmpty( ) )
+        {
+            pDetalles.actualizarRestaurante( todos.get( 0 ) );
+        }
     }
 
     /**
      * Cambia el restaurante actualmente seleccionado (y mostrado) por el que se pasa por parámetro
-     * @param seleccionado
+     * @param seleccionado El restaurante seleccionado en la lista
      */
     public void cambiarRestauranteSeleccionado( Restaurante seleccionado )
     {
@@ -133,7 +145,7 @@ public class VentanaPrincipal extends JFrame
     }
 
     /**
-     * Inicia la aplicación, creando un conjunto básico de restaurantes y luego creando la interfaz de la aplicación
+     * Inicia la aplicación, creando un conjunto básico de restaurantes y luego creando la interfaz
      * @param args
      */
     public static void main( String[] args )
@@ -147,5 +159,4 @@ public class VentanaPrincipal extends JFrame
 
         new VentanaPrincipal( elDiario );
     }
-
 }
