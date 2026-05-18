@@ -47,8 +47,8 @@ public class Restaurante
     }
 
     @Override
-    public String toString() {
+    public String toString( )
+    {
         return nombre;
     }
-
 }
